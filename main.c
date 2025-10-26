@@ -6,7 +6,7 @@ int main()
 {
     srand(time(NULL));
 
-    char *grid = malloc(81 * sizeof(char));  // creation de la grille
+    char *grid = malloc(81 * sizeof(char));  // creation de la grille (aide de l'ia)
     if (!grid) return 1;
 
     for (int i = 0; i < 81; i++) grid[i] = ' ';
@@ -45,6 +45,7 @@ int main()
    int fin = 0;
    while(fin == 0)
    {
+        system("clear");
         printf("Position joueur : %d ; %d\n", joueur.pos_x, joueur.pos_y);
         printf("Position colis : %d ; %d\n", colis.pos_x, colis.pos_y);
         printf("Position emplacement : %d ; %d\n", point.pos_x, point.pos_y);
@@ -114,7 +115,28 @@ int main()
             fin ++;
         }
     }
+    FILE *f = fopen("end.txt", "w");
+    if (f) 
+    {
+    
+        fprintf(f, "#####################\n");
 
+    
+        for (int y = 0; y < 9; y++) 
+        {
+            fprintf(f, "# ");                                   // (aide de l'ia)
+            for (int x = 0; x < 9; x++) 
+            {
+                fprintf(f, "%c ", grid[x + y * 9]);
+            }
+            fprintf(f, "#\n"); 
+        }
+
+    
+        fprintf(f, "#####################\n");
+
+        fclose(f);
+    }
     free(grid);
     return 0;
 }
